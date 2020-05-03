@@ -12,9 +12,6 @@
           <a class="nav-link" href="/produtos">Produtos</a>
         </li>
         <li @if($current=="register/public/categorias") class="nav-item active" @else class="nav-item" @endif>
-          <a class="nav-link" href="/produtosajax">ProdutosAjax</a>
-        </li>
-        <li @if($current=="register/public/categorias") class="nav-item active" @else class="nav-item" @endif>
             <a class="nav-link" href="/categorias">Categorias</a>
         </li>
       </ul>
