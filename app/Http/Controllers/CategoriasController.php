@@ -62,7 +62,7 @@ class CategoriasController extends Controller
     {
         $cat = Categoria::find($id);
         if($cat){
-            return view('pages.editarCategoria',compact('cat'));
+            return view('pages.categorias.editarCategoria',compact('cat'));
         }
         return redirect('/categoria');
     }

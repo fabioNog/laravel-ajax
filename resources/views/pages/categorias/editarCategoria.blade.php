@@ -3,7 +3,7 @@
 @section('body')
 <div class="card boder">
     <div class="card-body">
-        <form action="/register/public/categorias/{{$cat->id}}" method="POST">
+        <form action="/categorias/{{$cat->id}}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="nomeCategoria">Nome da Categoria</label>
