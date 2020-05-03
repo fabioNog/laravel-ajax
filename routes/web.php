@@ -19,12 +19,12 @@ Route::get('/', function () {
 
 
 // Rotas Produtos
-Route::get('/produtos', 'ProdutosController@index');
-Route::get('/produtos/novoproduto', 'ProdutosController@create');
-Route::post('/produtos', 'ProdutosController@store');
-Route::get('/produtos/editar/{id}', 'ProdutosController@edit');
-Route::post('/produtos/{id}', 'ProdutosController@update');
-Route::get('/produtos/excluir/{id}', 'ProdutosController@destroy');
+Route::get('/produtos', 'ProdutosController@indexView');
+// Route::get('/produtos/novoproduto', 'ProdutosController@create');
+// Route::post('/produtos', 'ProdutosController@store');
+// Route::get('/produtos/editar/{id}', 'ProdutosController@edit');
+// Route::post('/produtos/{id}', 'ProdutosController@update');
+// Route::get('/produtos/excluir/{id}', 'ProdutosController@destroy');
 
 
 // Rotas Categorias
