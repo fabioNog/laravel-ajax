@@ -6,7 +6,7 @@
     <div class="card-body">
         <h5 class="card-title">Cadastro de Produtos Ajax</h5>
                     
-        <table class="table table-ordered table-hover">
+        <table class="table table-ordered table-hover" id="tabelaProduto">
             <thead>
                 <tr>
                     <th>Código</th>
@@ -68,8 +68,13 @@
 </div>
 @endsection
 
-@section('javascript')
+@section('javascript')  
 <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN' : "{{crsf_token}}"
+        }
+    })
     function novoProduto(){
         $('#id').val('');
         $('#estoqueProduto').val('');
@@ -90,9 +95,33 @@
             }
         });
     }
+    
+
+    function montarLinha(prod){
+        var linha = 
+                "<tr>" +
+                     "<td>" + prod.id + "</td>" +
+                     "<td>"+prod.estoque+"</td>" +
+                     "<td>" + prod.preco + "</btd>" +
+                     "<td>" + prod.categoria_id + "<td>" +                     
+                    '<button class="btn btn-dark"> Editar </button> ' +
+                    '<button class="btn btn-danger">  Excluir </button>' +
+                "</tr>";
+        return linha;
+    }
+    function carregarProdutos(){
+        $.getJSON('/api/produtos',function(produto){        
+            for(i=0;i<produto.length;i++){
+                linha = montarLinha(produto[i]);
+                $('#tabelaProduto>tbody').append(linha);           
+            }   
+        });
+    }
 
     $(function(){
         carregarCategorias();
+        carregarProdutos();
     })
+    
 </script>
 @endsection
