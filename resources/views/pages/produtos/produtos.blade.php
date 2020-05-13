@@ -29,6 +29,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form class="form-horizontal" id="formProduto">
+                {{ csrf_field() }}
                 <div class="modal-header">
                     <h5 class="modal-title">Novo Produto</h5>
                 </div>
@@ -72,7 +73,7 @@
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN' : "{{crsf_token}}"
+            'X-CSRF-TOKEN' : "csrf_field()"
         }
     })
     function novoProduto(){
@@ -117,6 +118,11 @@
             }   
         });
     }
+
+    $("#formProduto").submit(function(event){
+        event.preventDefault();
+        console.log('Cliquei');
+    })
 
     $(function(){
         carregarCategorias();
