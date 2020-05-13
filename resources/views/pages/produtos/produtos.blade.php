@@ -6,7 +6,7 @@
     <div class="card-body">
         <h5 class="card-title">Cadastro de Produtos Ajax</h5>
                     
-        <table class="table table-ordered table-hover">
+        <table class="table table-ordered table-hover" id="tabelaProduto">
             <thead>
                 <tr>
                     <th>Código</th>
@@ -29,6 +29,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form class="form-horizontal" id="formProduto">
+                {{ csrf_field() }}
                 <div class="modal-header">
                     <h5 class="modal-title">Novo Produto</h5>
                 </div>
@@ -68,8 +69,13 @@
 </div>
 @endsection
 
-@section('javascript')
+@section('javascript')  
 <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN' : "csrf_field()"
+        }
+    })
     function novoProduto(){
         $('#id').val('');
         $('#estoqueProduto').val('');
@@ -90,9 +96,38 @@
             }
         });
     }
+    
+
+    function montarLinha(prod){
+        var linha = 
+                "<tr>" +
+                     "<td>" + prod.id + "</td>" +
+                     "<td>"+prod.estoque+"</td>" +
+                     "<td>" + prod.preco + "</btd>" +
+                     "<td>" + prod.categoria_id + "<td>" +                     
+                    '<button class="btn btn-dark"> Editar </button> ' +
+                    '<button class="btn btn-danger">  Excluir </button>' +
+                "</tr>";
+        return linha;
+    }
+    function carregarProdutos(){
+        $.getJSON('/api/produtos',function(produto){        
+            for(i=0;i<produto.length;i++){
+                linha = montarLinha(produto[i]);
+                $('#tabelaProduto>tbody').append(linha);           
+            }   
+        });
+    }
+
+    $("#formProduto").submit(function(event){
+        event.preventDefault();
+        console.log('Cliquei');
+    })
 
     $(function(){
         carregarCategorias();
+        carregarProdutos();
     })
+    
 </script>
 @endsection

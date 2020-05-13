@@ -19,6 +19,7 @@ class ProdutosController extends Controller
     }
     public function index()
     {
+        
         $produto = Produto::all();
         return $produto->toJson();
     }
@@ -41,7 +42,13 @@ class ProdutosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $prod = new Produto();
+        $prod->estoqueProduto = $request->estoqueProduto;
+        $prod->precoProduto = $request->precoProduto;
+        $prod->estoqueProduto = $request->estoqueProduto;
+        $prod->categoriaProduto = $request->categoriaProduto;
+        $prod->save();
+        return json_encode($prod);
     }
 
     /**
