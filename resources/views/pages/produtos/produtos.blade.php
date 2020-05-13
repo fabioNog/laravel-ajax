@@ -76,6 +76,7 @@
             'X-CSRF-TOKEN' : "csrf_field()"
         }
     })
+
     function novoProduto(){
         $('#id').val('');
         $('#estoqueProduto').val('');
@@ -97,7 +98,6 @@
         });
     }
     
-
     function montarLinha(prod){
         var linha = 
                 "<tr>" +
@@ -119,9 +119,21 @@
         });
     }
 
+    function criarProdutos(){
+        prod = {
+            estoque: $('#estoqueProduto').val(),
+            preco: $('#precoProduto').val(),
+            categoria_id:$('#categoriaProduto').val()
+        };                    
+        $.post("/api/produtos",prod,function(data){
+                console.log('data');
+        })
+    }
+    
     $("#formProduto").submit(function(event){
         event.preventDefault();
-        console.log('Cliquei');
+        criarProdutos();
+        $('#dlgProdutos').modal('hide');
     })
 
     $(function(){
