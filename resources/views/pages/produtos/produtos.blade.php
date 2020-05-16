@@ -160,6 +160,16 @@
             }
         })
     }
+
+    function editar(id){
+        $.getJSON('/api/produtos/'+id,function(produto){        
+            $('#id').val(produto.id);
+            $('#estoqueProduto').val(produto.estoque);
+            $('#precoProduto').val(produto.preco);
+            $('#categoriaProduto').val(produto.categoria_id);
+            $('#dlgProdutos').modal('show')  
+        });
+    }
     
     $("#formProduto").submit(function(event){
         event.preventDefault();
