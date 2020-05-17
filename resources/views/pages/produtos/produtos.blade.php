@@ -149,7 +149,7 @@
                 console.log('Apagou');
                 linhas = $("#tabelaProduto>tbody>tr");
                 e = linhas.filter(function(i,elemento){
-                    return elemento.cels[0].textContent == id;
+                    return elemento.cells[0].textContent == id;
                 });
                 if(e)
                     e.remove();
@@ -171,11 +171,50 @@
         });
     }
     
+
+    // Escolhendo se estou inserindo ou editando
     $("#formProduto").submit(function(event){
         event.preventDefault();
-        criarProdutos();
+        if($("#id").val() != ''){
+            salvarProdutos();
+        }
+        else
+            criarProdutos();
+        
         $('#dlgProdutos').modal('hide');
     })
+
+    function salvarProdutos(){
+        prod = {
+            id : $('#id').val(),
+            estoque: $('#estoqueProduto').val(),
+            preco: $('#precoProduto').val(),
+            categoria_id:$('#categoriaProduto').val()
+        };
+        
+        $.ajax({
+            type:"PUT",
+            url: "api/produtos/" + prod.id,
+            data: prod,
+            context: this,
+            sucess: function(data){
+                prod = JSON.parse(data);
+                linhas = $("#tabelaProduto>tbody>tr")
+                e = linhas.filter(function(i,e){
+                    return (e.cells[0].textContent == prod.id)  ;
+                });
+                if(e)
+                    e[0].cells[0].textContent = prod.id;
+                    e[0].cells[1].textContent = prod.estoque;
+                    e[0].cells[2].textContent = prod.preco;
+                    e[0].cells[3].textContent = prod.categoria_id;
+
+            },
+            error: function(){
+                console.log(err);
+            }
+        })
+    };
 
     $(function(){
         carregarCategorias();
