@@ -11,9 +11,12 @@
         <li @if($current=="/produtos") class="nav-item active" @else class="nav-item" @endif>
           <a class="nav-link" href="/produtos">Produtos</a>
         </li>
-        <li @if($current=="register/public/categorias") class="nav-item active" @else class="nav-item" @endif>
+        <li @if($current=="/categorias") class="nav-item active" @else class="nav-item" @endif>
             <a class="nav-link" href="/categorias">Categorias</a>
         </li>
+        <li @if($current=="/clientes") class="nav-item active" @else class="nav-item" @endif>
+          <a class="nav-link" href="/clientes">Clientes</a>
+      </li>
       </ul>
     </div>
   </nav>
